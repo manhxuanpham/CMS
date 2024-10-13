@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using CMS.Core.Repository;
+using CMS.Data.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +13,12 @@ namespace CMS.Data.SeedWorks
     {
         private readonly CMSContext _context;
 
-        public UnitOfWork(CMSContext context)
+        public UnitOfWork(CMSContext context, IMapper mapper)
         {
             _context = context;
+            Posts = new PostRepository(context, mapper);
         }
+        public IPostRepository Posts { get; private set; }
         public async Task<int> CompleteAsync()
         {
             return await _context.SaveChangesAsync();

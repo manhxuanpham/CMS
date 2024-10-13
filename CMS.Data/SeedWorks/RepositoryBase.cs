@@ -12,9 +12,12 @@ namespace CMS.Data.SeedWorks
     public class RepositoryBase<T,Key> :IRepository<T ,Key> where T:class
     {
         private readonly DbSet<T> _dbSet;
+        protected readonly CMSContext _context;
         public RepositoryBase(CMSContext context)
         {
             _dbSet = context.Set<T>();
+            _context = context;
+
         }
         public void Add(T entity)
         {
