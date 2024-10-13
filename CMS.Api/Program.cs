@@ -1,6 +1,7 @@
 using CMS.Api;
 using CMS.Core.Domain.Identity;
 using CMS.Data;
+using CMS.Data.SeedWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
-
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 //Config DB Context and ASP.NET Core Identity

@@ -11,8 +11,8 @@ namespace CMS.Api
             {
                 using (var context = scope.ServiceProvider.GetRequiredService<CMSContext>())
                 {
-                    context.Database.Migrate();
-                    new DataSeeder().SeedAsync(context).Wait();
+                    context.Database.MigrateAsync();
+                    new DataSeeder().SeedAsync(context);
                 }
             }
             return app;
