@@ -17,12 +17,12 @@ namespace CMS.Data
             var rootAdminRoleId = Guid.NewGuid();
             if (!context.Roles.Any())
             {
-                await context.Roles.AddAsync(new AppRole
+                await context.Roles.AddAsync(new AppRole()
                 {
                     Id = rootAdminRoleId,
                     Name = "Admin",
-                    NormalizedName = "Admin",
-                    DisplayName = "Quản Trị Viên"
+                    NormalizedName = "ADMIN",
+                    DisplayName = "Quản trị viên"
                 });
                 await context.SaveChangesAsync();
             }

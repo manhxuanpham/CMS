@@ -3,6 +3,7 @@ using CMS.Core.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace CMS.Data
 {
@@ -21,6 +22,7 @@ namespace CMS.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
 
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims")

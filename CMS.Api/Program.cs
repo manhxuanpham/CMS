@@ -1,4 +1,6 @@
 using CMS.Api;
+using CMS.Api.Services;
+using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
 using CMS.Core.Models.Content;
 using CMS.Data;
@@ -64,7 +66,14 @@ foreach (var service in services)
     }
 }
 
+// automaper
 builder.Services.AddAutoMapper(typeof(PostInListDto));
+//Authen and author
+builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
+builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
+builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
 //Default config for ASP.NET Core
 
