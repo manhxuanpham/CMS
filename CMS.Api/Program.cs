@@ -26,6 +26,16 @@ builder.Services.AddDbContext<CMSContext>(options =>
 builder.Services.AddIdentity<AppUser, AppRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<CMSContext>();
 
+var CMSCorsPolicy = "CMSCorsPolicy";
+
+builder.Services.AddCors(o => o.AddPolicy(CMSCorsPolicy, builder =>
+{
+    builder.AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins(configuration["AllowedOrigins"])
+        .AllowCredentials();
+}));
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
@@ -107,6 +117,7 @@ if (app.Environment.IsDevelopment())
     });
 
 }
+app.UseCors(CMSCorsPolicy);
 
 app.UseHttpsRedirection();
 
@@ -114,7 +125,6 @@ app.UseAuthorization();
 
 
 app.MapControllers();
-
 
 //Seeding data
 app.MigrateDatabase();
