@@ -3,7 +3,8 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@a
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { GlobalHttpInterceptorService } from './shared/interceptors/error-handler.interceptor';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 // Import routing module
@@ -37,8 +38,8 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { ADMIN_API_BASE_URL, AdminApiAuthApiClient } from './api/admin-api.service.generated';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ADMIN_API_BASE_URL, AdminApiAuthApiClient, AdminApiTestApiClient, AdminApiTokenApiClient } from './api/admin-api.service.generated';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AlertService } from './shared/services/alert.service';
 import { MessageService } from 'primeng/api';
 import {ToastModule } from 'primeng/toast';
@@ -48,6 +49,7 @@ const APP_CONTAINERS = [
   DefaultHeaderComponent,
   DefaultLayoutComponent
 ];
+import { AuthGuard } from './shared/auth.guard';
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -84,16 +86,27 @@ const APP_CONTAINERS = [
   providers: [
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
     {
-
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
+      multi: true,
+    },
+    {
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
-
     },
     IconSetService,
     Title,
     MessageService,
     AlertService,
     AdminApiAuthApiClient,
+    AuthGuard,
+    AdminApiTestApiClient,
+    AdminApiTokenApiClient
   ],
   bootstrap: [AppComponent],
 })

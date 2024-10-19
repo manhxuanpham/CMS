@@ -50,13 +50,43 @@ export class TokenStorageService {
     return user;
   }
 
+  // b64DecodeUnicode(str) {
+  //   return decodeURIComponent(
+  //     Array.prototype.map
+  //       .call(atob(str), function (c) {
+  //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  //       })
+  //       .join('')
+  //   );
+  // }
   b64DecodeUnicode(str) {
-    return decodeURIComponent(
-      Array.prototype.map
-        .call(atob(str), function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join('')
-    );
+    try {
+      // Kiểm tra xem chuỗi có hợp lệ không trước khi giải mã
+      if (this.isValidBase64(str)) {
+        return decodeURIComponent(
+          Array.prototype.map
+            .call(atob(str), function (c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join('')
+        );
+      } else {
+        console.error('Invalid Base64 string');
+        return null;
+      }
+    } catch (e) {
+      console.error('Error decoding Base64:', e);
+      return null;
+    }
+  }
+
+  // Hàm kiểm tra chuỗi có phải Base64 hợp lệ không
+  isValidBase64(str) {
+    try {
+      // Chuỗi phải có độ dài chia hết cho 4 và chỉ chứa các ký tự hợp lệ
+      return btoa(atob(str)) === str;
+    } catch (err) {
+      return false;
+    }
   }
 }
