@@ -138,6 +138,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddAuthentication(o =>
 {
+    
     o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(cfg =>
@@ -161,6 +162,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
+        
         c.SwaggerEndpoint("AdminAPI/swagger.json", "Admin API");
         c.DisplayOperationId();
         c.DisplayRequestDuration();
