@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { GlobalHttpInterceptorService } from './shared/interceptors/error-handler.interceptor';
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -38,10 +38,10 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { ADMIN_API_BASE_URL, AdminApiAuthApiClient, AdminApiTestApiClient, AdminApiTokenApiClient } from './api/admin-api.service.generated';
+import { ADMIN_API_BASE_URL, AdminApiAuthApiClient, AdminApiRoleApiClient, AdminApiTestApiClient, AdminApiTokenApiClient } from './api/admin-api.service.generated';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AlertService } from './shared/services/alert.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import {ToastModule } from 'primeng/toast';
 import { environment } from '../environments/environment';
 const APP_CONTAINERS = [
@@ -50,6 +50,10 @@ const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
 import { AuthGuard } from './shared/auth.guard';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { UtilityService } from './shared/services/utility.service';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -82,6 +86,9 @@ import { AuthGuard } from './shared/auth.guard';
     NgScrollbarModule,
     ToastModule,
     HttpClientModule,
+    ConfirmDialogModule,
+    DynamicDialogModule,
+    FormsModule,
   ],
   providers: [
     { provide: ADMIN_API_BASE_URL, useValue: environment.API_URL },
@@ -106,7 +113,11 @@ import { AuthGuard } from './shared/auth.guard';
     AdminApiAuthApiClient,
     AuthGuard,
     AdminApiTestApiClient,
-    AdminApiTokenApiClient
+    AdminApiTokenApiClient,
+    AdminApiRoleApiClient,
+    DialogService,
+    ConfirmationService,
+    UtilityService,
   ],
   bootstrap: [AppComponent],
 })
