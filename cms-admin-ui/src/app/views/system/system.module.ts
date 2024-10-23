@@ -13,9 +13,17 @@ import { SharedModule } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { RolesDetailComponent } from './roles/roles-detail.component';
+import { RoleDetailComponent } from './roles/role-detail.component';
 import { CmsSharedModule } from 'src/app/shared/modules/cms-share.module';
 import { PermissionGrantComponent } from './roles/permission-grant.component';
+import { ChangeEmailComponent } from './users/change-email.component';
+import { RoleAssignComponent } from './users/role-assign.component';
+import { SetPasswordComponent } from './users/set-password.component';
+import { UserDetailComponent } from './users/user-detail.component';
+import { BadgeModule } from 'primeng/badge';
+import { PickListModule } from 'primeng/picklist';
+import { ImageModule } from 'primeng/image';
+
 
 import { KeyFilterModule } from 'primeng/keyfilter';
 
@@ -36,7 +44,19 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     CmsSharedModule,
     ReactiveFormsModule,
     CommonModule,
+    BadgeModule,
+    PickListModule,
+    ImageModule,
   ],
-  declarations: [UserComponent, RoleComponent, RolesDetailComponent, PermissionGrantComponent],
+  declarations: [
+    UserComponent,
+    RoleComponent,
+    RoleDetailComponent,
+    PermissionGrantComponent,
+    ChangeEmailComponent,
+    RoleAssignComponent,
+    SetPasswordComponent,
+    UserDetailComponent,
+  ],
 })
 export class SystemModule {}
