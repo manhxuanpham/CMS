@@ -1,4 +1,5 @@
 ﻿using CMS.Api;
+using CMS.Api.Authorization;
 using CMS.Api.Services;
 using CMS.Core.ConfigOptions;
 using CMS.Core.Domain.Identity;
@@ -7,6 +8,7 @@ using CMS.Data;
 using CMS.Data.Repository;
 using CMS.Data.SeedWorks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -31,6 +33,9 @@ builder.Services.AddIdentity<AppUser, AppRole>(options => options.SignIn.Require
     .AddEntityFrameworkStores<CMSContext>();
 
 var CMSCorsPolicy = "CMSCorsPolicy";
+
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 builder.Services.AddCors(o => o.AddPolicy(CMSCorsPolicy, builder =>
 {
