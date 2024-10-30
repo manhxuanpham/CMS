@@ -87,7 +87,6 @@ namespace CMS.Api.Controllers.AdminApi
                 return BadRequest();
             }
             var user = _mapper.Map<CreateUserRequest, AppUser>(request);
-            user.DateCreated = DateTime.Now;
             var result = await _userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)

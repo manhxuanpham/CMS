@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using CMS.Core.Domain.Identity;
 using CMS.Core.Repository;
 using CMS.Data.Repository;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +15,18 @@ namespace CMS.Data.SeedWorks
     {
         private readonly CMSContext _context;
 
-        public UnitOfWork(CMSContext context, IMapper mapper)
+        public UnitOfWork(CMSContext context, IMapper mapper, UserManager<AppUser> userManager)
         {
             _context = context;
-            Posts = new PostRepository(context, mapper);
+            Posts = new PostRepository(context, mapper, userManager);
+            PostCategories = new PostCategoryRepository(context, mapper);
+            Series = new SeriesRepository(context, mapper);
+
         }
         public IPostRepository Posts { get; private set; }
+        public IPostCategoryRepository PostCategories { get; private set; }
+        public ISeriesRepository Series { get; private set; }
+
         public async Task<int> CompleteAsync()
         {
             return await _context.SaveChangesAsync();

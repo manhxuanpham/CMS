@@ -31,5 +31,9 @@ namespace CMS.Core.Domain.Identity
         public DateTime? VipExpireDate { get; set; }
         public DateTime? LastLoginDate { get; set; }
         public double Balance { get; set; }
+        public string GetFullName()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
     }
 }
