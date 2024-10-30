@@ -41,8 +41,10 @@
     "ngx-scrollbar": "^13.0.3",
     "nswag": "^14.1.0",
     "primeicons": "^7.0.0",
-    "primeng": "^17.18.11",
+    "primeng": "^16.2.0",
+    "quill": "^2.0.2",
     "rxjs": "~7.8.1",
+    "source-map": "^0.7.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.1"
   },

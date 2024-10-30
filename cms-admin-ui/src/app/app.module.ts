@@ -38,7 +38,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { ADMIN_API_BASE_URL, AdminApiAuthApiClient, AdminApiRoleApiClient, AdminApiTestApiClient, AdminApiTokenApiClient, AdminApiUserApiClient } from './api/admin-api.service.generated';
+import {AdminApiSeriesApiClient,AdminApiPostApiClient,AdminApiPostCategoryApiClient, ADMIN_API_BASE_URL, AdminApiAuthApiClient, AdminApiRoleApiClient, AdminApiTestApiClient, AdminApiTokenApiClient, AdminApiUserApiClient } from './api/admin-api.service.generated';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AlertService } from './shared/services/alert.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -54,6 +54,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UtilityService } from './shared/services/utility.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { UploadService } from './shared/services/upload.service';
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -118,7 +119,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     DialogService,
     ConfirmationService,
     UtilityService,
-    AdminApiUserApiClient
+    AdminApiUserApiClient,
+    AdminApiPostCategoryApiClient,
+    AdminApiPostApiClient,
+    AdminApiSeriesApiClient,
+    ConfirmationService,
+    UploadService
   ],
   bootstrap: [AppComponent],
 })

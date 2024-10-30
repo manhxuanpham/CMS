@@ -1,4 +1,3 @@
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogComponent } from 'primeng/dynamicdialog';
@@ -13,7 +12,7 @@ import {
   UserDtoPagedResult,
 } from 'src/app/api/admin-api.service.generated';
 import { AlertService } from 'src/app/shared/services/alert.service';
-import { MessageConstants } from '../../../shared/constants/message.constant';
+import { MessageConstants } from '../../../shared/constants/messages.constant';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
