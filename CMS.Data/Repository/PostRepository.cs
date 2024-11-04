@@ -52,7 +52,6 @@ namespace CMS.Data.Repository
             {
                 query = query.Where(x => x.Name.Contains(keyword));
             }
-
             if (categoryId.HasValue)
             {
                 query = query.Where(x => x.CategoryId == categoryId.Value);
@@ -61,8 +60,7 @@ namespace CMS.Data.Repository
             {
                 query = query.Where(x => x.AuthorUserId == currentUserId);
             }
-
-
+            
             var totalRow = await query.CountAsync();
 
             query = query.OrderByDescending(x => x.DateCreated)
@@ -193,6 +191,13 @@ namespace CMS.Data.Repository
 
             post.Status = PostStatus.WaitingForApproval;
             _context.Posts.Update(post);
+        }
+        public async Task<List<Post>> GetListUnpaidPublishPosts(Guid userId)
+        {
+            return await _context.Posts
+               .Where(x => x.AuthorUserId == userId && x.IsPaid == false
+                       && x.Status == PostStatus.Published)
+               .ToListAsync();
         }
     }
 }

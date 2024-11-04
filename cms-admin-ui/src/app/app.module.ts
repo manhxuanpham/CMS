@@ -55,6 +55,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { UtilityService } from './shared/services/utility.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UploadService } from './shared/services/upload.service';
+import { BroadcastService } from './shared/services/boardcast.service';
+
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -124,7 +126,8 @@ import { UploadService } from './shared/services/upload.service';
     AdminApiPostApiClient,
     AdminApiSeriesApiClient,
     ConfirmationService,
-    UploadService
+    UploadService,
+    BroadcastService,
   ],
   bootstrap: [AppComponent],
 })

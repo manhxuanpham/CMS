@@ -5,7 +5,7 @@
 namespace CMS.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class testkịmok12 : Migration
+    public partial class Transaction11 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

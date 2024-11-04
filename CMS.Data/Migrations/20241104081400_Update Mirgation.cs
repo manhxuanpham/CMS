@@ -5,7 +5,7 @@
 namespace CMS.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class UpdateMirgation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

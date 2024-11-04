@@ -18,7 +18,10 @@ using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var configuration = builder.Configuration;
+Console.WriteLine("Current Environment: " + Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
+Console.WriteLine("Connection String: " + configuration.GetConnectionString("DefaultConnection"));
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
@@ -154,6 +157,8 @@ builder.Services.AddAuthentication(o =>
     cfg.SaveToken = true;
     cfg.TokenValidationParameters = new TokenValidationParameters
     {
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.FromSeconds(0),
         ValidIssuer = configuration["JwtTokenSettings:Issuer"],
         ValidAudience = configuration["JwtTokenSettings:Issuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtTokenSettings:Key"]))

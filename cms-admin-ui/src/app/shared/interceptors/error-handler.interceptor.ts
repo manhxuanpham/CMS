@@ -26,10 +26,11 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
             'Hệ thống có lỗi xảy ra. Vui lòng liên hệ admin'
           );
         }
-        if (ex.status == 400) {
-          const error = await (new Response(ex.error)).text();
-          this.alertService.showError(error);
-        }
+        // if (ex.status == 400) {
+        //   const error = await (new Response(ex.error)).text();
+        //   console.log("count noti")
+        //   this.alertService.showError(error);
+        // }
         throw ex;
       })
     );

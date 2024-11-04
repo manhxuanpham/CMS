@@ -19,6 +19,7 @@ namespace CMS.Core.Models.Content
         public string? SeoKeywords { get; set; }
         public Guid OwnerUserId { get; set; }
 
+
         public class AutoMapperProfiles : Profile
         {
             public AutoMapperProfiles()

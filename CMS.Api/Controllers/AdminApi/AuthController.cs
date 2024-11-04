@@ -36,11 +36,11 @@ namespace CMS.Api.Controllers.AdminApi
         {
             if (request == null) { return BadRequest("invalid request"); }
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null ||user.IsActive == false || user.LockoutEnabled) { return Unauthorized(); }
+            if (user == null ||user.IsActive == false || user.LockoutEnabled) { return BadRequest("Tài khoản không chính xác"); }
             var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, false, true);
             if(!result.Succeeded)
             {
-                return Unauthorized();
+                return BadRequest(" Mật khẩu không chính xác");
             }
             //Authorization
             var roles = await _userManager.GetRolesAsync(user);

@@ -1,17 +1,28 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import {AdminApiAuthApiClient, AuthenticatedResult, LoginRequest } from '../../../api/admin-api.service.generated';
+import {
+  AdminApiAuthApiClient,
+  AuthenticatedResult,
+  LoginRequest,
+} from '../../../api/admin-api.service.generated';
 import { AlertService } from '../../../shared/services/alert.service';
 import { UrlConstants } from 'src/app/shared/constants/url.constants';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
+import { BroadcastService } from 'src/app/shared/services/boardcast.service';
+
 import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnInit,OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   loading = false;
   loginForm: FormGroup;
@@ -20,12 +31,18 @@ export class LoginComponent implements OnDestroy {
     private authApiClient: AdminApiAuthApiClient,
     private alertService: AlertService,
     private tokenSerivce: TokenStorageService,
+    private broadCastService: BroadcastService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
       userName: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
+  }
+  ngOnInit(): void {
+    this.broadCastService.httpError.asObservable().subscribe(values => {
+      this.loading = false;
+  });
   }
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
@@ -53,9 +70,9 @@ export class LoginComponent implements OnDestroy {
         },
         error: (error: any) => {
           console.log(error);
-          this.alertService.showError('Đăng nhập không đúng.');
+          console.log("noticount");
+          this.alertService.showError('Tài khoản hoặc mật khẩu không chính xác không đúng.');
           this.loading = false;
-
         },
       });
   }
