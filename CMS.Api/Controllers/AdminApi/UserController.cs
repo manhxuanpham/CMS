@@ -202,6 +202,7 @@ namespace CMS.Api.Controllers.AdminApi
             var addedResult = await _userManager.AddToRolesAsync(user, roles);
             if (!addedResult.Succeeded || !removedResult.Succeeded)
             {
+
                 List<IdentityError> addedErrorList = addedResult.Errors.ToList();
                 List<IdentityError> removedErrorList = removedResult.Errors.ToList();
                 var errorList = new List<IdentityError>();

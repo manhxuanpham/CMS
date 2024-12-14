@@ -11,6 +11,7 @@ namespace CMS.Data
 {
     public class CMSContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
+
         public CMSContext(DbContextOptions options) : base(options)
         {
         }

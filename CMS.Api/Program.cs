@@ -16,16 +16,24 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using System.Text;
+using CMS.Core.Service;
+using CMS.Data.Service;
+using VNPAY.NET;
+using CMS.Core.Domain.Royalty;
+using CMS.Core.Models.Payment;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
-Console.WriteLine("Current Environment: " + Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
-Console.WriteLine("Connection String: " + configuration.GetConnectionString("DefaultConnection"));
+
 var connectionString = configuration.GetConnectionString("DefaultConnection");
+builder.Services.Configure<VnpaySettings>(builder.Configuration.GetSection("Vnpay"));
+
+
 // Add services to the container.
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IVnpay, VNPAY.NET.Vnpay>();
 
 
 //Config DB Context and ASP.NET Core Identity
@@ -98,6 +106,7 @@ builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
 builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+builder.Services.AddScoped<IRoyaltyService, RoyaltyService>();
 
 //Default config for ASP.NET Core
 

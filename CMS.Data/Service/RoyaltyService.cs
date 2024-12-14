@@ -53,7 +53,7 @@ namespace CMS.Data.Service
                                     and (@fromYear = 0 or datepart(month,p.DateCreated) <= @toMonth)
                                     and (@toYear = 0 or datepart(year,p.DateCreated) <= @toYear)
                                     and (@userId is null or p.AuthorUserId = @userId)";
-
+              
                 var items = await conn.QueryAsync<RoyaltyReportByMonthDto>(coreSql, new
                 {
                     fromMonth,
@@ -65,6 +65,7 @@ namespace CMS.Data.Service
                 return items.ToList();
             }
         }
+
 
         public async Task<List<RoyaltyReportByUserDto>> GetRoyaltyReportByUserAsync(Guid? userId, int fromMonth, int fromYear, int toMonth, int toYear)
         {
@@ -94,14 +95,14 @@ namespace CMS.Data.Service
                                     and (@toYear = 0 or datepart(year,p.DateCreated) <= @toYear)
                                     and (@userId is null or p.AuthorUserId = @userId)";
 
-                var items = await conn.QueryAsync<RoyaltyReportByUserDto>(coreSql, new
+                var items = await conn.QueryAsync<RoyaltyReportByUserDto>("GetRoyaltyReportByUser", new
                 {
                     fromMonth,
                     fromYear,
                     toMonth,
                     toYear,
                     userId
-                }, null, 120, CommandType.Text);
+                }, null, 120, CommandType.StoredProcedure);
                 return items.ToList();
             }
         }

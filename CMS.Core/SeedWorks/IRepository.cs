@@ -16,5 +16,9 @@ namespace CMS.Data.SeedWorks
         void AddRange(IEnumerable<T> entities);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
+        ////Dapper-specific methods
+        //Task<IEnumerable<TResult>> QueryAsync<TResult>(string sql, object param = null, int? commandTimeout = null);
+        //Task<TResult> QueryFirstOrDefaultAsync<TResult>(string sql, object param = null, int? commandTimeout = null);
+        //Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null);
     }
 }

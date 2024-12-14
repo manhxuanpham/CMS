@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -47,5 +48,41 @@ namespace CMS.Data.SeedWorks
         {
             _dbSet.RemoveRange(entities);
         }
+
+        //#region Dapper Methods
+        //public async Task<IEnumerable<TResult>> QueryAsync<TResult>(string sql, object param = null, int? commandTimeout = null)
+        //{
+        //    using (var connection = _context.Database.GetDbConnection())
+        //    {
+        //        if (connection.State == System.Data.ConnectionState.Closed)
+        //            await connection.OpenAsync();
+
+        //        return await connection.QueryAsync<TResult>(sql, param, commandTimeout: commandTimeout);
+        //    }
+        //}
+
+        //public async Task<TResult> QueryFirstOrDefaultAsync<TResult>(string sql, object param = null, int? commandTimeout = null)
+        //{
+        //    using (var connection = _context.Database.GetDbConnection())
+        //    {
+        //        if (connection.State == System.Data.ConnectionState.Closed)
+        //            await connection.OpenAsync();
+
+        //        return await connection.QueryFirstOrDefaultAsync<TResult>(sql, param, commandTimeout: commandTimeout);
+        //    }
+        //}
+
+        //public async Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null)
+        //{
+        //    using (var connection = _context.Database.GetDbConnection())
+        //    {
+        //        if (connection.State == System.Data.ConnectionState.Closed)
+        //            await connection.OpenAsync();
+
+        //        return await connection.ExecuteAsync(sql, param, commandTimeout: commandTimeout);
+        //    }
+        //}
+        //#endregion
+
     }
 }

@@ -132,6 +132,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
       reader.onload = () => {
+        console.log("reader resul",file)
         this.form.patchValue({
           avatarFileName: file.name,
           avatarFileContent: reader.result,
